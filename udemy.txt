@@ -1,0 +1,79 @@
+INSERT INTO udemy.endereÇo (rua,bairro,cidade,estado,id_cliente) VALUES ('rua santo antonio','imigrante','campo bom','RS',01);
+
+SELECT * FROM udemy.endereÇo
+SELECT * FROM udemy.cliente
+SELECT * FROM udemy.telefone
+
+INSERT INTO udemy.endereÇo (rua,bairro,cidade,estado,id_cliente) VALUES ('rossel521','jardim','poa','RS',02);
+INSERT INTO udemy.endereÇo (rua,bairro,cidade,estado,id_cliente) VALUES ('rossel520','jardim','poa','RS',03);
+
+INSERT INTO udemy.cliente (nome, sexo, email, cpf) VALUES ('boby','M', NULL,'3452870');
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('COM','23456789', 4);
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('TEL','98734141', 1);
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('RES','99070966', 2);
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('RES','96666420', 3);
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('COM','98734111', 1);
+INSERT INTO udemy.telefone (tipo,numero,id_cliente) VALUES ('RES','35251010', 1);
+INSERT INTO udemy.cliente (nome, sexo, email, cpf) VALUES ('nino','M', NULL,'3452871');
+
+SELECT nome,sexo,numero
+FROM udemy.cliente
+INNER JOIN udemy.telefone 
+ON idcliente = id_cliente
+WHERE sexo = 'F'
+
+SELECT c.nome,c.sexo,t.numero,e.rua
+FROM udemy.cliente c
+INNER JOIN udemy.telefone t
+ON c.idcliente = t.id_cliente
+INNER JOIN udemy.endereÇo e
+On c.idcliente = e.id_cliente
+
+SELECT * FROM udemy.cliente
+WHERE idcliente IN (1,2,4)
+
+SELECT COUNT(*) AS QUANTIDADE, SEXO
+FROM udemy.cliente
+GROUP BY sexo
+
+SELECT * FROM udemy.cliente
+ORDER BY 1 desc
+/* order by é coluna */
+SELECT * FROM udemy.cliente
+ORDER BY 1 asc 
+
+SELECT MAX () AS ..... /*MIN TBM , AUG É MEDIA, TRUNCATR(O QUE, NUMERO D ECASAS DECIMAIS)*/
+FROM ...
+
+SELECT SUM(idcliente) AS TOTAL_ID
+FROM udemy.cliente
+
+SELECT sexo, SUM(idcliente) AS TOTAL_ID
+FROM udemy.cliente
+GROUP BY sexo
+
+/*
+SELECT nome, MAX(MARÇO) AS MAX_MARÇO
+FROM udemy.vendedor     DA ERRADO CUIDADO!! OLHAR ABAIXO
+
+SELECT nome, MARÇO FROM VENDEDORES
+WHERE MARÇO = (SELECT MAX(MARÇO) FROM VENDEDORES)
+
+SELECT nome, FEVE FROM VENDEDORES
+WHERE FEVE > (SELECT AVG(FEVE) FROM VENDEDORES)
+*/
+SELECT nome, MAX(cpf) AS MAX_cpf /* quando tem funçao junto, usar group by */
+FROM udemy.cliente
+GROUP BY nome
+LIMIT 1
+
+
+
+SELECT nome, cpf FROM udemy.cliente
+WHERE cpf = (SELECT MAX(cpf) FROM udemy.cliente)
+
+SELECT table_name, column_name, 
+   data_type 
+FROM  information_schema.columns
+WHERE 
+   table_name = 'cliente';  
